@@ -1,27 +1,30 @@
 using System;
 
-class MyClass {
-    private int x; // Encapsulated variable
-
-    public void SetX(int i) {
-        x = i;
+// An abstract class cannot be instantiated (you can't do 'new parent()')
+abstract class Parent {
+    public void Show() {
+        Console.WriteLine("This is a parent abstract class");
     }
+}
 
-    public int GetX() {
-        return x;
+// FIX 1: Use the ':' symbol to inherit from the parent class
+class Child : Parent {
+    public void Display() {
+        Console.WriteLine("This is child class");
     }
 }
 
 class Program {
+    // FIX 2: The entry point must be named 'Main', not 'Math'
     public static void Main() {
-        MyClass m1 = new MyClass(); // 1. Create the object
+        Child ct = new Child();
         
-        m1.SetX(20);                // 2. Set the value
+        // This comes from the Parent class via inheritance
+        ct.Show(); 
         
-        // FIX: Use the object 'm1' to call the method, not 'new'
-        int v1 = m1.GetX();         
+        // This comes from the Child class itself
+        ct.Display(); 
         
-        Console.WriteLine("The value of x is: " + v1);
         Console.ReadKey();
     }
 }
