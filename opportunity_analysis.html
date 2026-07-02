@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opportunity Analysis — Johnson & Fitzpatrick</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1a18;
+  --ink-mid: #4a4a44;
+  --ink-muted: #888880;
+  --page: #f7f5f0;
+  --page-warm: #ede9e0;
+  --rule: #d8d4c8;
+  --accent-j: #2b4a8c;
+  --accent-j-light: #e8eef7;
+  --accent-m: #7a2d1a;
+  --accent-m-light: #f5ede9;
+  --accent-both: #1e6645;
+  --accent-both-light: #e6f2ec;
+  --mono: 'IBM Plex Mono', monospace;
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --sans: 'Inter', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--page);
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+/* HEADER */
+.masthead {
+  border-bottom: 2px solid var(--ink);
+  padding: 2rem 2.5rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: end;
+}
+.masthead-left {}
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.masthead h1 {
+  font-family: var(--serif);
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--ink);
+}
+.masthead h1 em {
+  font-style: italic;
+  color: var(--accent-j);
+}
+.book-pills {
+  display: flex;
+  gap: 8px;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+.pill {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 2px;
+  letter-spacing: 0.05em;
+}
+.pill-j { background: var(--accent-j-light); color: var(--accent-j); border: 1px solid var(--accent-j); }
+.pill-m { background: var(--accent-m-light); color: var(--accent-m); border: 1px solid var(--accent-m); }
+.pill-both { background: var(--accent-both-light); color: var(--accent-both); border: 1px solid var(--accent-both); }
+.masthead-right {
+  text-align: right;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-muted);
+  line-height: 1.8;
+}
+
+/* NAV */
+.phase-nav {
+  border-bottom: 1px solid var(--rule);
+  padding: 0 2.5rem;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  background: var(--page);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.phase-nav a {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  text-decoration: none;
+  padding: 0.8rem 1rem;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.phase-nav a:hover { color: var(--ink); border-bottom-color: var(--rule); }
+.phase-nav a.active { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* MAIN LAYOUT */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 2.5rem;
+}
+
+/* SECTION */
+.phase-section {
+  margin-bottom: 4rem;
+  scroll-margin-top: 80px;
+}
+.phase-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--rule);
+}
+.phase-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.phase-title {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* PROBLEM CARDS */
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+.problem-card {
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1.25rem;
+  border-top: 3px solid var(--accent-j);
+  position: relative;
+}
+.problem-card.mom { border-top-color: var(--accent-m); }
+.problem-card.both { border-top-color: var(--accent-both); }
+.pc-source {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+}
+.pc-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink);
+  margin-bottom: 0.75rem;
+  padding-right: 3rem;
+  line-height: 1.4;
+}
+.pc-field {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 4px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.pc-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  min-width: 80px;
+  padding-top: 1px;
+  letter-spacing: 0.05em;
+}
+.pc-value { color: var(--ink-mid); }
+.severity-bar {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--rule);
+}
+.sev-label { font-family: var(--mono); font-size: 10px; color: var(--ink-muted); margin-right: 4px; letter-spacing: 0.05em; }
+.sev-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--rule);
+}
+.sev-dot.filled { background: var(--accent-j); }
+.sev-dot.filled.mom { background: var(--accent-m); }
+.sev-dot.filled.both { background: var(--accent-both); }
+.market-tag {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 9px;
+  padding: 2px 7px;
+  border-radius: 2px;
+  letter-spacing: 0.05em;
+}
+.market-G { background: var(--accent-j-light); color: var(--accent-j); }
+.market-N { background: var(--accent-m-light); color: var(--accent-m); }
+.market-L { background: var(--page-warm); color: var(--ink-muted); }
+
+/* OPPORTUNITY TABLE */
+.opp-table-wrap { overflow-x: auto; }
+.opp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.opp-table th {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-muted);
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 2px solid var(--ink);
+  background: var(--page);
+  position: sticky;
+  top: 42px;
+}
+.opp-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+  color: var(--ink-mid);
+}
+.opp-table tr:hover td { background: var(--page-warm); }
+.opp-table td:first-child { font-weight: 500; color: var(--ink); font-size: 12px; }
+.score-cell {
+  display: flex;
+  gap: 2px;
+}
+.score-pip {
+  width: 6px; height: 14px; border-radius: 1px;
+  background: var(--rule);
+}
+.score-pip.on { background: var(--ink); }
+
+/* STARTUP CARDS */
+.startup-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+.startup-card {
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.sc-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem;
+  align-items: start;
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--rule);
+  background: var(--page-warm);
+}
+.sc-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  padding-top: 2px;
+}
+.sc-name {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+.sc-tagline {
+  font-size: 13px;
+  color: var(--ink-mid);
+  font-style: italic;
+}
+.sc-tag { }
+.sc-body {
+  padding: 1.25rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.sc-field { }
+.sc-field-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-muted);
+  margin-bottom: 4px;
+}
+.sc-field-value { font-size: 12px; color: var(--ink-mid); line-height: 1.5; }
+.sc-mvp {
+  border-top: 1px solid var(--rule);
+  padding: 1rem 1.25rem;
+  background: var(--page);
+}
+.mvp-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-muted);
+  margin-bottom: 4px;
+}
+.mvp-value { font-size: 12px; color: var(--ink); font-weight: 500; }
+
+/* HACKATHON */
+.hack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+.hack-card {
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.hc-name {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.hc-wow {
+  font-size: 12px;
+  color: white;
+  background: var(--ink);
+  padding: 6px 10px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+.hc-field-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  margin-bottom: 3px;
+}
+.hc-field-value { font-size: 12px; color: var(--ink-mid); line-height: 1.5; }
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 2px;
+}
+.tech-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  background: var(--page-warm);
+  color: var(--ink-mid);
+  padding: 2px 7px;
+  border-radius: 2px;
+  border: 1px solid var(--rule);
+}
+
+/* LOCALIZATION */
+.locale-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+.locale-card {
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1.25rem;
+}
+.lc-country {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-both);
+  margin-bottom: 4px;
+}
+.lc-idea {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.lc-why { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+.lc-domain {
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+}
+
+/* INSIGHTS */
+.insights-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+.insight-row {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  align-items: start;
+}
+.insight-q {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--rule);
+  line-height: 1;
+  padding-top: 2px;
+}
+.insight-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-muted);
+  margin-bottom: 4px;
+}
+.insight-text {
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.65;
+}
+.insight-text strong { color: var(--ink); }
+
+/* HIGHLIGHT CARD */
+.highlight {
+  background: var(--accent-j);
+  color: white;
+  border-radius: 4px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+.highlight .insight-q { color: rgba(255,255,255,0.3); }
+.highlight .insight-label { color: rgba(255,255,255,0.6); }
+.highlight .insight-text { color: white; }
+.highlight .insight-text strong { color: white; }
+
+/* FOOTER */
+footer {
+  border-top: 2px solid var(--ink);
+  padding: 1.5rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-muted);
+  letter-spacing: 0.06em;
+}
+
+/* LOADING STATE */
+#loading-overlay {
+  position: fixed; inset: 0;
+  background: var(--page);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.loader-title {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.loader-msg {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  min-height: 1.5em;
+}
+.loader-bar-wrap {
+  width: 280px;
+  height: 2px;
+  background: var(--rule);
+  border-radius: 1px;
+  overflow: hidden;
+}
+.loader-bar {
+  height: 100%;
+  background: var(--ink);
+  border-radius: 1px;
+  width: 0%;
+  transition: width 0.4s ease;
+}
+
+/* TAB SYSTEM for phases with many items */
+.tab-bar { display: flex; gap: 0; border-bottom: 1px solid var(--rule); margin-bottom: 1rem; }
+.tab-btn {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 6px 14px;
+  border: none;
+  background: none;
+  color: var(--ink-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+}
+.tab-btn.active { color: var(--ink); border-bottom-color: var(--ink); }
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .masthead { grid-template-columns: 1fr; padding: 1.5rem; }
+  .masthead h1 { font-size: 1.7rem; }
+  .container { padding: 1.5rem; }
+  .masthead-right { text-align: left; }
+  footer { flex-direction: column; gap: 0.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div id="loading-overlay">
+  <p class="loader-title">Assembling the elite team...</p>
+  <p class="loader-msg" id="loader-msg">INITIALIZING ANALYSIS</p>
+  <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
+</div>
+
+<div id="main-content" style="display:none">
+
+<header class="masthead">
+  <div class="masthead-left">
+    <p class="eyebrow">Elite Opportunity Discovery · 7-Phase Analysis</p>
+    <h1>Hidden Opportunities in<br><em>Good Ideas</em> & <em>The Mom Test</em></h1>
+    <div class="book-pills">
+      <span class="pill pill-j">Where Good Ideas Come From — Steven Johnson</span>
+      <span class="pill pill-m">The Mom Test — Rob Fitzpatrick</span>
+      <span class="pill pill-both">Cross-book synthesis</span>
+    </div>
+  </div>
+  <div class="masthead-right">
+    <div>7 Phases Analyzed</div>
+    <div>2 Source Books</div>
+    <div>10 Startups · 5 Hackathons</div>
+    <div>South Asia Localized</div>
+  </div>
+</header>
+
+<nav class="phase-nav">
+  <a href="#p1" class="active" onclick="setActive(this)">P1 · Problems</a>
+  <a href="#p2" onclick="setActive(this)">P2 · Opportunities</a>
+  <a href="#p3" onclick="setActive(this)">P3 · Technology</a>
+  <a href="#p4" onclick="setActive(this)">P4 · Startups</a>
+  <a href="#p5" onclick="setActive(this)">P5 · Hackathon</a>
+  <a href="#p6" onclick="setActive(this)">P6 · Localization</a>
+  <a href="#p7" onclick="setActive(this)">P7 · Insights</a>
+</nav>
+
+<main class="container">
+
+<!-- PHASE 1 -->
+<section class="phase-section" id="p1">
+  <div class="phase-header">
+    <span class="phase-num">Phase 01</span>
+    <span class="phase-title">Hidden Problems Extracted</span>
+  </div>
+  <div class="problem-grid" id="problems-grid"></div>
+</section>
+
+<!-- PHASE 2 -->
+<section class="phase-section" id="p2">
+  <div class="phase-header">
+    <span class="phase-num">Phase 02</span>
+    <span class="phase-title">Opportunity Mapping</span>
+  </div>
+  <div class="opp-table-wrap">
+    <table class="opp-table" id="opp-table">
+      <thead>
+        <tr>
+          <th>Opportunity</th>
+          <th>Assumption Broken</th>
+          <th>Manual → Automated</th>
+          <th>Freq</th>
+          <th>Pain</th>
+          <th>WTP</th>
+          <th>Feasibility</th>
+        </tr>
+      </thead>
+      <tbody id="opp-body"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- PHASE 3 -->
+<section class="phase-section" id="p3">
+  <div class="phase-header">
+    <span class="phase-num">Phase 03</span>
+    <span class="phase-title">Technology Opportunities</span>
+  </div>
+  <div class="problem-grid" id="tech-grid"></div>
+</section>
+
+<!-- PHASE 4 -->
+<section class="phase-section" id="p4">
+  <div class="phase-header">
+    <span class="phase-num">Phase 04</span>
+    <span class="phase-title">Top 10 Startup Opportunities</span>
+  </div>
+  <div class="startup-grid" id="startup-grid"></div>
+</section>
+
+<!-- PHASE 5 -->
+<section class="phase-section" id="p5">
+  <div class="phase-header">
+    <span class="phase-num">Phase 05</span>
+    <span class="phase-title">Hackathon Projects</span>
+  </div>
+  <div class="hack-grid" id="hack-grid"></div>
+</section>
+
+<!-- PHASE 6 -->
+<section class="phase-section" id="p6">
+  <div class="phase-header">
+    <span class="phase-num">Phase 06</span>
+    <span class="phase-title">Localization — Nepal, India, Bangladesh</span>
+  </div>
+  <div class="locale-grid" id="locale-grid"></div>
+</section>
+
+<!-- PHASE 7 -->
+<section class="phase-section" id="p7">
+  <div class="phase-header">
+    <span class="phase-num">Phase 07</span>
+    <span class="phase-title">Inventor's Insights</span>
+  </div>
+  <div class="insights-grid" id="insights-grid"></div>
+</section>
+
+</main>
+
+<footer>
+  <span>Where Good Ideas Come From · The Mom Test</span>
+  <span>Elite Opportunity Discovery · All 7 Phases</span>
+</footer>
+
+</div>
+
+<script>
+// ── DATA ────────────────────────────────────────────────────────────────────
+
+const PROBLEMS = [
+  {
+    title: "Idea isolation: innovators work in silos, missing the 'adjacent possible'",
+    source: "j",
+    rootCause: "Knowledge work is organized around individuals and teams, not around idea networks or cross-domain liquid networks.",
+    who: "Researchers, founders, product teams, educators",
+    frequency: "Daily",
+    workaround: "Random hallway conversations, Twitter, conferences, reading widely",
+    whyInsufficient: "Serendipity is unscalable. Most environments actively prevent cross-domain collision.",
+    severity: 9, market: "G"
+  },
+  {
+    title: "The 'slow hunch' has no home — breakthrough ideas take years to crystallize but no tool supports them",
+    source: "j",
+    rootCause: "Notes apps are capture tools, not incubation environments. They store but don't connect or surface ideas over time.",
+    who: "Writers, scientists, founders, strategists",
+    frequency: "Always-on",
+    workaround: "Commonplace books, Zettelkasten, Roam, Obsidian",
+    whyInsufficient: "These require manual linking. The serendipitous collision never happens automatically.",
+    severity: 8, market: "G"
+  },
+  {
+    title: "Errors and noise in R&D are dismissed, not mined — 'mistakes' are discarded rather than studied",
+    source: "j",
+    rootCause: "Scientific and corporate culture treats failure as waste, not signal. Data from failed experiments is rarely stored or shared.",
+    who: "Scientists, engineers, product teams",
+    frequency: "Every project cycle",
+    workaround: "Informal knowledge sharing, post-mortems (rarely done)",
+    whyInsufficient: "No infrastructure exists to systematically capture and cross-reference error signals.",
+    severity: 7, market: "G"
+  },
+  {
+    title: "Customer interviews yield socially desirable lies, not truth",
+    source: "m",
+    rootCause: "People are hardwired to be polite. Direct questions about opinions trigger impression management, not honest feedback.",
+    who: "Every founder, PM, researcher doing user interviews",
+    frequency: "Every interview",
+    workaround: "Trying to read body language, asking follow-ups, doing multiple rounds",
+    whyInsufficient: "The interviewer's presence and their questions structurally bias answers. The problem is architectural.",
+    severity: 10, market: "G"
+  },
+  {
+    title: "Founders spend months building products nobody asked for (disguised as validation)",
+    source: "m",
+    rootCause: "Compliments and 'sounds great!' are mistaken for validated demand. No behavioral signal confirms real intent.",
+    who: "Startup founders, corporate innovation teams, PMs",
+    frequency: "Every product cycle",
+    workaround: "Landing page tests, fake door tests, pre-sales",
+    whyInsufficient: "These are one-off experiments, not systematic frameworks. Most teams never implement them properly.",
+    severity: 10, market: "G"
+  },
+  {
+    title: "No infrastructure for 'liquid networks' — knowledge doesn't flow between disciplines",
+    source: "j",
+    rootCause: "Org structures are hierarchical and siloed. Departments don't share vocabularies, problems, or datasets.",
+    who: "Large organizations, universities, research labs",
+    frequency: "Structural/permanent",
+    workaround: "Cross-functional meetings (rare and performative), innovation labs",
+    whyInsufficient: "These are organizational theater. Real liquid networks require persistent, searchable, connected knowledge.",
+    severity: 8, market: "G"
+  },
+  {
+    title: "Exaptation is impossible to engineer — borrowing ideas across fields is purely accidental",
+    source: "j",
+    rootCause: "There is no mechanism to systematically expose someone's problem to solutions that exist in unrelated domains.",
+    who: "Product designers, engineers, researchers",
+    frequency: "Rare by design",
+    workaround: "TED talks, cross-industry conferences, lateral thinking books",
+    whyInsufficient: "None of these create the actual connection between a specific problem and a distant-domain solution.",
+    severity: 9, market: "G"
+  },
+  {
+    title: "Interview data is captured in messy notes, never synthesized into actionable patterns",
+    source: "m",
+    rootCause: "Interview notes are personal and unstandardized. Teams lack tools to aggregate behavioral signals across many conversations.",
+    who: "Product managers, UX researchers, founders",
+    frequency: "After every research sprint",
+    workaround: "Spreadsheets, Notion docs, Dovetail, manual affinity mapping",
+    whyInsufficient: "Manual synthesis is slow, biased, and doesn't surface second-order patterns.",
+    severity: 8, market: "G"
+  },
+  {
+    title: "No signal between 'interested' and 'committed' — founders can't distinguish fake enthusiasm from real demand",
+    source: "m",
+    rootCause: "Language is cheap. There's no framework that maps conversational statements to actual commitment levels.",
+    who: "Founders in early-stage validation",
+    frequency: "Every customer conversation",
+    workaround: "Asking for money, pre-orders, asking for intros",
+    whyInsufficient: "Founders don't know when or how to apply these tactics. The skill isn't teachable through text alone.",
+    severity: 9, market: "G"
+  },
+  {
+    title: "Platforms shape innovation more than individual genius, but are built without this insight",
+    source: "j",
+    rootCause: "Product builders optimize for features and UX, not for the 'adjacent possible' they're enabling for others. Ecosystems are an afterthought.",
+    who: "Platform companies, open source foundations, API builders",
+    frequency: "Structural",
+    workaround: "Developer evangelism, hackathons",
+    whyInsufficient: "These don't change the underlying architecture toward enabling unexpected innovation.",
+    severity: 7, market: "G"
+  }
+];
+
+const OPPORTUNITIES = [
+  { name: "AI-powered slow hunch incubator", assumption: "Ideas mature in isolation", manual: "Manual idea journaling → auto-surfacing dormant notes when relevant new context arrives", freq: 5, pain: 5, wtp: 4, feas: 4 },
+  { name: "Behavioral interview coaching platform", assumption: "Good questions produce honest answers", manual: "Founder writes interview script → AI generates commitment-revealing question trees", freq: 5, pain: 5, wtp: 5, feas: 5 },
+  { name: "Cross-domain exaptation engine", assumption: "Solutions must come from your own field", manual: "Researcher searches literature → AI maps your problem to solved analogues in other industries", freq: 4, pain: 4, wtp: 4, feas: 4 },
+  { name: "Customer signal intelligence layer", assumption: "Interviews give direct insight", manual: "PM takes notes → AI extracts behavioral signals and separates compliments from commitments", freq: 5, pain: 5, wtp: 5, feas: 5 },
+  { name: "Liquid network OS for organizations", assumption: "Email/Slack enable knowledge flow", manual: "Knowledge hoarded in silos → AI-surfaced knowledge graph connecting problems across departments", freq: 4, pain: 4, wtp: 4, feas: 3 },
+  { name: "Error & anomaly mining system for R&D", assumption: "Failed experiments are waste", manual: "Researchers manually discard outliers → system captures and cross-references anomalies as signals", freq: 3, pain: 4, wtp: 4, feas: 4 },
+  { name: "Demand validation engine (beyond surveys)", assumption: "Stated interest = demand", manual: "Founders run manual fake-door tests → automated A/B commitment ladders with behavioral tracking", freq: 5, pain: 5, wtp: 5, feas: 5 },
+  { name: "Interview pattern synthesis tool", assumption: "Researchers can synthesize manually", manual: "Affinity mapping in Miro → AI clusters behavioral signals across 50+ interviews automatically", freq: 4, pain: 4, wtp: 4, feas: 5 },
+];
+
+const TECH_OPPORTUNITIES = [
+  { title: "LLM-powered idea network", source: "j", tech: "LLM + Knowledge Graph + Semantic Search", why: "Johnson's 'slow hunch' requires an AI that can surface a 3-year-old note when a new idea arrives that completes it. Standard search can't do this — only semantic similarity over time can.", use: "Personal knowledge incubator that auto-connects dormant notes to new inputs" },
+  { title: "Behavioral NLP interview analyzer", source: "m", tech: "NLP + Speech Recognition + Sentiment Analysis", why: "Fitzpatrick's commitment signals (past behavior, money, time) are buried in conversational text. NLP can identify these signals in transcripts far better than humans reading notes.", use: "Upload interview recordings → get a commitment-level score per participant" },
+  { title: "Cross-domain problem-solution matchmaker", source: "j", tech: "LLM + Vector Embeddings + Domain Classification", why: "Exaptation requires mapping a problem's semantic structure to solutions in distant domains. Only embedding-based similarity search across a multi-domain corpus can do this at scale.", use: "Describe your problem → get analogous solutions from biology, military, architecture, etc." },
+  { title: "Organizational knowledge graph", source: "j", tech: "Graph Database + LLM + RAG", why: "Liquid networks need a queryable structure. Graph DBs represent relationships between people, problems, and knowledge nodes in a way relational databases cannot.", use: "Org-wide 'adjacent possible' radar — see what teams are working on problems your solutions could solve" },
+  { title: "Demand validation tracking", source: "m", tech: "Behavioral Analytics + ML + Experiment Automation", why: "The gap between 'sounds cool' and 'I'll pay for it' is behavioral, not attitudinal. ML can model commitment probability from sequences of micro-behaviors far better than surveys.", use: "Landing page → commitment ladder → predictive demand score before building anything" },
+];
+
+const STARTUPS = [
+  {
+    n: 1, name: "HunchOS", tagline: "The operating system for slow ideas",
+    source: "j", customer: "Researchers, writers, founders, strategists",
+    innovation: "AI that monitors your notes over time and proactively surfaces connections when new context makes old hunches suddenly relevant",
+    moat: "Proprietary 'hunch graph' grows more valuable the longer you use it. Switching cost = losing years of incubated ideas.",
+    mvp: "Browser extension that watches your notes/bookmarks and sends a weekly 'collision digest' of newly-relevant old ideas",
+    vision: "Enterprise knowledge incubation platform; replaces innovation consultants with a living organizational mind",
+    revenue: "SaaS $15/mo personal, $50/seat enterprise",
+    techRisk: "Precision of semantic similarity — too many false connections = noise",
+    bizRisk: "Note-taking app market is crowded; positioning against Obsidian/Notion/Roam is hard"
+  },
+  {
+    n: 2, name: "Candor", tagline: "Interview questions that can't be lied to",
+    source: "m", customer: "Startup founders, PMs, UX researchers",
+    innovation: "AI interview guide builder that generates past-behavior, money-and-time, and specificity questions — rejecting any question that could yield a polite answer",
+    moat: "Proprietary question library + benchmark database of which questions predict actual purchasing behavior",
+    mvp: "Web form: describe your product idea → get 12 Mom Test-compliant interview questions with probe follow-ups",
+    vision: "Full research operating system: conduct, transcribe, analyze, and synthesize interviews with commitment-signal scoring",
+    revenue: "Freemium → $29/mo for synthesis + team features",
+    techRisk: "Ground truth labeling — hard to know if questions actually predicted outcomes without longitudinal data",
+    bizRisk: "Dovetail, Maze, UserTesting are well-funded competitors"
+  },
+  {
+    n: 3, name: "Exapt", tagline: "Your problem, solved in a different industry",
+    source: "j", customer: "R&D teams, product designers, engineers at innovation-intensive firms",
+    innovation: "Input a problem description → AI searches across 50+ domains (biology, military, architecture, materials science, game design) to surface analogous solutions that have already been proven",
+    moat: "Multi-domain corpus + proprietary ontology mapping problem classes across disciplines",
+    mvp: "GPT-4 wrapper with curated domain datasets: describe engineering problem → get 5 biomimicry analogues",
+    vision: "Institutional R&D assistant embedded in Notion/Confluence/Jira — surfaces cross-domain inspiration at the moment of problem framing",
+    revenue: "API access + $99/seat enterprise",
+    techRisk: "Domain ontology building is expert-labor-intensive",
+    bizRisk: "Hard to prove causality between analogues shown and innovations produced"
+  },
+  {
+    n: 4, name: "SignalLayer", tagline: "Turning customer conversations into demand evidence",
+    source: "m", customer: "Early-stage founders, corporate venture studios",
+    innovation: "Upload raw interview transcripts → AI extracts commitment signals (past behavior, money spent, time invested, specific problem articulations) and scores actual vs. perceived demand",
+    moat: "Training data from thousands of validated/invalidated startup ideas maps language patterns to outcomes",
+    mvp: "GPT-4 prompt chain on uploaded transcript → JSON output with signal tags and demand score",
+    vision: "Real-time interview coaching mode (live transcription + signal alerts) + investor-ready demand evidence reports",
+    revenue: "Pay-per-report $9 → $49/mo unlimited",
+    techRisk: "Longitudinal validation dataset is hard to acquire",
+    bizRisk: "Founders may distrust AI scoring of something as nuanced as customer conversations"
+  },
+  {
+    n: 5, name: "LiquidGraph", tagline: "The knowledge network your org already has but can't see",
+    source: "j", customer: "Mid-to-large enterprises (500+ employees), research universities",
+    innovation: "Passive integration with Slack, email, docs, and tickets to build a living knowledge graph — then proactively surfaces 'you should talk to X' or 'team Y solved this in 2022'",
+    moat: "Deep integrations + proprietary graph model trained on org-specific communication patterns",
+    mvp: "Slack bot that monitors channels and surfaces 'related thread from 6 months ago' suggestions",
+    vision: "Organizational immune system — detects knowledge gaps, redundant work, and unexploited adjacent possibles in real time",
+    revenue: "$8/seat/mo, minimum 100 seats",
+    techRisk: "Privacy concerns around passive monitoring of communication",
+    bizRisk: "Enterprise sales cycles are long; Glean and Guru are already in this space"
+  },
+  {
+    n: 6, name: "ErrorMine", tagline: "Your failed experiments are your most valuable data",
+    source: "j", customer: "Pharma R&D, materials science labs, AI research teams",
+    innovation: "Standardized capture of 'negative results' from experiments, then cross-references anomalies against other teams' failures to surface hidden patterns and serendipitous discoveries",
+    moat: "Network effect — each lab's failures become more valuable as more labs participate",
+    mvp: "Structured failure log template + weekly digest showing cross-team anomaly patterns",
+    vision: "Industry-wide negative results database with AI-surfaced breakthrough signals",
+    revenue: "Institutional subscription $2,000–$20,000/yr per lab",
+    techRisk: "Data standardization across labs is deeply hard",
+    bizRisk: "Competitive moats prevent sharing negative results (IP concerns)"
+  },
+  {
+    n: 7, name: "PreCommit", tagline: "Don't build until they pay",
+    source: "m", customer: "Solo founders, indie makers, startup studios",
+    innovation: "Automated commitment-ladder landing pages: visitor → interest → waitlist → deposit → pre-order, with behavioral analytics at each step that predict actual conversion before writing code",
+    moat: "Proprietary conversion benchmark database by category, so founders know if their 3% deposit rate is good or bad",
+    mvp: "No-code landing page builder with built-in commitment steps and a 'demand score' dashboard",
+    vision: "Full pre-product market research suite — replaces the MVP with a commitment-proven product spec",
+    revenue: "Free tier → $19/mo for analytics + $299 launch report",
+    techRisk: "Benchmark database requires critical mass of launches to be useful",
+    bizRisk: "Carrd, Gumroad, Kickstarter all occupy adjacent territory"
+  },
+  {
+    n: 8, name: "AdjacentAI", tagline: "See the next possible version of your product",
+    source: "j", customer: "Product managers, startup founders, venture studios",
+    innovation: "Given a product description, maps the 'adjacent possible' — features, markets, business models one step away that have already been proven in analogous contexts",
+    moat: "Proprietary dataset of product evolution histories + outcome data (revenue, retention impact)",
+    mvp: "GPT-4 + product taxonomy: describe your product → get 10 adjacent expansions with real-world analogues",
+    vision: "AI product strategist — continuous monitoring of your market's adjacent possible with proactive alerts when competitors enter adjacent spaces",
+    revenue: "$49/mo per product, enterprise custom",
+    techRisk: "Product ontology is hard to build at scale",
+    bizRisk: "Hard to defend against OpenAI or Perplexity building this natively"
+  },
+  {
+    n: 9, name: "CoffeeHouse", tagline: "Engineered serendipity for distributed teams",
+    source: "j", customer: "Remote-first companies, research labs, accelerators",
+    innovation: "Weekly algorithmic cross-pollination: matches people across teams based on current problems they're working on, not just org chart proximity — because Johnson shows that ideas emerge from unexpected human collisions",
+    moat: "Outcome tracking (did this intro lead to a breakthrough?) trains the matching algorithm over time",
+    mvp: "Slack app: fill in 'what problem am I working on' → algorithmically paired 25-min coffee chat with someone across the org",
+    vision: "Innovation operating layer for distributed orgs — measurable ROI on serendipity",
+    revenue: "$3/user/mo",
+    techRisk: "Measuring 'innovation outcomes' from introductions is genuinely hard",
+    bizRisk: "Donut.ai already does random coffee chats — differentiation on intentionality is subtle"
+  },
+  {
+    n: 10, name: "MomTestAI", tagline: "Practice customer interviews with AI before the real thing",
+    source: "m", customer: "First-time founders, MBA students, startup accelerator cohorts",
+    innovation: "AI customer persona simulator trained on Fitzpatrick's framework — founders practice interviews with a realistic 'mom' persona that gives socially desirable answers, and gets coached in real-time when they ask bad questions",
+    moat: "Proprietary question-quality taxonomy + benchmark scoring from thousands of interview sessions",
+    mvp: "Web app: describe your startup idea → chat with a simulated customer persona → get interview quality score",
+    vision: "Full customer discovery training platform used by YC, Techstars, university programs worldwide",
+    revenue: "B2B2C: $500/cohort for accelerators, $29/mo individual",
+    techRisk: "Persona realism — needs to be convincingly socially biased, not just wrong",
+    bizRisk: "YC could build this internally; hard to sell to the best programs"
+  }
+];
+
+const HACKATHONS = [
+  {
+    name: "MomBot",
+    problem: "Founders ask leading questions and get validation instead of truth",
+    demo: "Type your startup idea → chat with a simulated 'polite mom' persona → after 10 exchanges, see which of your questions were 'fishing for compliments' vs. genuinely truth-seeking",
+    stack: ["Next.js", "OpenAI API", "Tailwind", "Vercel"],
+    arch: "System prompt engineers a socially-biased persona. Second LLM scores each founder question against Mom Test criteria in real time.",
+    wow: "Live red/green signal on each question as you type it — 'This question will get a lie'",
+    stretch: ["Multi-persona simulator (skeptic, evangelist, busy exec)", "Interview transcript upload + retroactive scoring"]
+  },
+  {
+    name: "HunchSurface",
+    problem: "Slow hunches die because there's no system to keep them alive until they're ready",
+    demo: "Paste your last 30 days of notes → AI identifies your 'dormant hunches' → shows which ones are now worth pursuing based on signals in the news/research today",
+    stack: ["Python", "OpenAI Embeddings", "Pinecone", "Streamlit"],
+    arch: "Embed all note chunks → embed today's news feed → cosine similarity to surface high-relevance collisions",
+    wow: "Side-by-side: your 2-year-old note fragment next to the news story that just made it relevant",
+    stretch: ["Chrome extension for passive note capture", "Weekly hunch digest email"]
+  },
+  {
+    name: "ExaptBot",
+    problem: "Engineers solve problems using only their own domain's solutions",
+    demo: "Describe a product or engineering problem → see 5 solutions drawn from completely different industries (e.g. your logistics problem solved using bird migration patterns)",
+    stack: ["Next.js", "OpenAI API", "Wikipedia API", "Framer Motion"],
+    arch: "Problem → extract semantic class → search cross-domain analogues via curated domain prompt templates → render as illustrated cards",
+    wow: "Animated 'domain jump' visualization showing the conceptual leap from your field to the solution's field",
+    stretch: ["Save and share analogues", "Vote on most surprising/useful cross-domain solution"]
+  },
+  {
+    name: "SignalScore",
+    problem: "After an interview, founders don't know if they heard signal or noise",
+    demo: "Paste a raw customer interview transcript → get a commitment signal heatmap: each sentence colored by signal strength (behavioral commitment vs. polite opinion)",
+    stack: ["React", "OpenAI API", "D3.js", "FastAPI"],
+    arch: "LLM classifies each sentence against Fitzpatrick's signal taxonomy (past behavior, money, time, specificity, referrals) → D3 renders inline heatmap",
+    wow: "Color-coded transcript where you can instantly see that 80% of what they said was noise",
+    stretch: ["Compare signal density across multiple interviews", "Export investor-ready 'evidence of demand' report"]
+  },
+  {
+    name: "AdjacentMap",
+    problem: "Product teams can't see the next possible moves clearly",
+    demo: "Type a product description → see an interactive map of the adjacent possible: features, markets, and business models one step away, with real examples of companies who took each path",
+    stack: ["React", "D3.js", "OpenAI API", "Tailwind"],
+    arch: "LLM generates adjacency nodes with real-world company examples → D3 force graph renders interactive map → click any node to expand further",
+    wow: "Live, expandable graph that grows as you explore — genuinely feels like you're navigating possibility space",
+    stretch: ["Import competitor's product → map their adjacent possible to anticipate their next move", "Save maps as strategy documents"]
+  }
+];
+
+const LOCALIZATIONS = [
+  { country: "Nepal", idea: "MomTest AI for USAID / NGO project validation", why: "Development organizations routinely build programs communities didn't ask for. Fitzpatrick's framework applied to NGO fieldwork could save millions in misallocated aid. Nepal's NGO density is among the highest per capita globally.", domain: "Development / NGO" },
+  { country: "India", idea: "Customer discovery platform for Tier 2/3 city founders", why: "India's startup ecosystem is exploding in cities like Indore, Surat, and Patna — but founders there lack access to YC-quality validation frameworks. A Hindi/regional-language MomTest coaching tool fills a massive gap.", domain: "Startup Ecosystem" },
+  { country: "Bangladesh", idea: "Hunch incubator for garment industry innovation", why: "Garment sector engineers have deep tacit knowledge but no system for incubating cross-domain ideas (e.g., medical textile innovations). Johnson's slow hunch concept applied to industrial R&D in Bangladesh's $40B industry.", domain: "Manufacturing / R&D" },
+  { country: "Nepal", idea: "Liquid knowledge graph for government ministries", why: "Nepal's bureaucracy is notoriously siloed — the same problems are solved (badly) independently across ministries. A lightweight knowledge-sharing graph could reduce redundancy and surface what already works.", domain: "E-governance" },
+  { country: "India", idea: "Agricultural exaptation engine for smallholder farmers", why: "Solutions to pest control, irrigation, and soil problems that exist in other countries/crops are not reaching Indian smallholders. A WhatsApp-based 'cross-domain solution finder' for agricultural problems could serve 100M+ farmers.", domain: "Agriculture / AgriTech" },
+  { country: "Bangladesh", idea: "Interview training for microfinance loan officers", why: "MFI officers ask leading questions when assessing borrower viability — producing bad loans. Mom Test techniques retrained for credit assessment could reduce default rates significantly.", domain: "Microfinance / FinTech" },
+  { country: "Nepal", idea: "Error mining for disaster response organizations", why: "Every monsoon, the same infrastructure failures recur. A shared negative-results database across disaster response NGOs could break the cycle of repeated failure.", domain: "Disaster Management" },
+  { country: "India", idea: "Adjacent possible mapping for MSME businesses", why: "India has 63M MSMEs, most of which are stuck in single-product/market trajectories. An adjacency map tool in local languages showing what similar businesses pivoted to could unlock enormous latent growth.", domain: "SME / Business" },
+  { country: "Bangladesh", idea: "Pre-commit validation for rural app builders", why: "Numerous apps are built for rural Bangladesh (healthcare, agri, finance) that fail because nobody verified demand. A commitment-ladder landing page tool designed for low-literacy, WhatsApp-first contexts is urgently needed.", domain: "Rural Tech" },
+  { country: "India", idea: "Serendipity engine for Indian university research", why: "Indian universities operate in severe silos. A CoffeeHouse-style cross-department collision system connecting engineering, agriculture, medicine, and social science faculties could catalyze interdisciplinary breakthroughs.", domain: "Higher Education / R&D" },
+];
+
+const INSIGHTS = [
+  {
+    q: "?", label: "Hidden truth Johnson revealed unintentionally",
+    text: "<strong>Innovation infrastructure is more valuable than individual talent.</strong> Johnson's book is ostensibly about ideas, but the deeper revelation is that the environment produces the idea. Cities, the web, coral reefs — not geniuses — are the real innovators. This means the $50B 'talent recruitment' industry is targeting the wrong variable. The real opportunity is building environments, not recruiting individuals.",
+    highlight: true
+  },
+  {
+    q: "?", label: "Hidden truth Fitzpatrick revealed unintentionally",
+    text: "<strong>Most market research is structured self-deception.</strong> The entire survey, focus group, and interview industry is built on the premise that asking people questions produces useful data. Fitzpatrick reveals this is largely false — and nobody in the $90B market research industry has structurally responded. The industry continues to sell a flawed product."
+  },
+  {
+    q: "→", label: "Assumption that could be completely removed",
+    text: "<strong>Remove the assumption that validation must happen through conversation at all.</strong> Fitzpatrick fixes how you talk to customers. But the deeper move is to eliminate the conversation entirely — behavioral evidence (pre-orders, search queries, job postings, credit card data) contains the truth without the social distortion layer."
+  },
+  {
+    q: "→", label: "What a first-principles thinker would redesign",
+    text: "<strong>Redesign the organization from scratch as a liquid network.</strong> Johnson shows that the best innovation environments are flat, serendipitous, and porous. A first-principles thinker would scrap org charts, titles, and departments entirely — replacing them with dynamic, problem-centered squads with a shared knowledge graph and algorithmic serendipity matching."
+  },
+  {
+    q: "$", label: "Highest chance of becoming a billion-dollar company",
+    text: "<strong>SignalLayer / behavioral customer intelligence.</strong> The gap between what customers say and what they do is a universal, permanent, high-severity problem. Every company that builds products needs this. The wedge is small (interview analysis) but the ceiling is enormous: replace the entire market research industry with behavioral truth. Qualtrics sold for $8B doing the wrong version of this."
+  },
+  {
+    q: "👩‍💻", label: "Best opportunity for a solo student developer",
+    text: "<strong>MomTestAI — the interview practice simulator.</strong> Buildable with a single LLM API call. Clear target customer (founders, MBA students). Can be launched in a weekend. Accelerators will pay for cohort licenses. No infrastructure costs at MVP stage. Revenue is real and immediate."
+  },
+  {
+    q: "🏆", label: "Ideal university hackathon project",
+    text: "<strong>SignalScore — the interview transcript heatmap.</strong> It has a visually stunning demo (color-coded transcript), solves a problem every judge understands, uses modern AI in a non-trivial way (multi-label NLP classification), and can be built in 24 hours. The 'aha moment' is instant and universal."
+  },
+  {
+    q: "⏳", label: "Opportunity that won't exist in 10 years",
+    text: "<strong>The 'Mom Test' interview framework itself.</strong> Fitzpatrick's book exists because human conversation is the best signal available today. Within a decade, behavioral data (what people actually search, buy, abandon, spend time on) will be so rich and accessible that asking customers questions will seem as quaint as focus groups seem today. The entire customer interview category will be absorbed into behavioral analytics."
+  }
+];
+
+// ── RENDER ───────────────────────────────────────────────────────────────────
+
+function scoreBar(v, cls='') {
+  let dots = '';
+  for(let i=1;i<=5;i++) dots += `<div class="score-pip ${i<=v?'on':''}"></div>`;
+  return `<div class="score-cell">${dots}</div>`;
+}
+
+function renderProblems() {
+  const grid = document.getElementById('problems-grid');
+  grid.innerHTML = PROBLEMS.map(p => {
+    const dots = Array.from({length:10}, (_,i) => `<div class="sev-dot ${i<p.severity?`filled ${p.source}`:''}" ></div>`).join('');
+    return `<div class="problem-card ${p.source}">
+      <span class="pc-source"><span class="pill pill-${p.source}" style="font-size:9px">${p.source==='j'?'Johnson':p.source==='m'?'Fitzpatrick':'Both'}</span></span>
+      <div class="pc-title">${p.title}</div>
+      <div class="pc-field"><span class="pc-label">Root cause</span><span class="pc-value">${p.rootCause}</span></div>
+      <div class="pc-field"><span class="pc-label">Who</span><span class="pc-value">${p.who}</span></div>
+      <div class="pc-field"><span class="pc-label">Frequency</span><span class="pc-value">${p.frequency}</span></div>
+      <div class="pc-field"><span class="pc-label">Workaround</span><span class="pc-value">${p.workaround}</span></div>
+      <div class="severity-bar">
+        <span class="sev-label">Severity</span>
+        ${dots}
+        <span class="market-tag market-${p.market}">${p.market==='G'?'GLOBAL':p.market==='N'?'NATIONAL':'LOCAL'}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderOpportunities() {
+  const tbody = document.getElementById('opp-body');
+  tbody.innerHTML = OPPORTUNITIES.map(o => `<tr>
+    <td>${o.name}</td>
+    <td>${o.assumption}</td>
+    <td style="font-size:11px;color:var(--ink-mid)">${o.manual}</td>
+    <td>${scoreBar(o.freq)}</td>
+    <td>${scoreBar(o.pain)}</td>
+    <td>${scoreBar(o.wtp)}</td>
+    <td>${scoreBar(o.feas)}</td>
+  </tr>`).join('');
+}
+
+function renderTech() {
+  const grid = document.getElementById('tech-grid');
+  grid.innerHTML = TECH_OPPORTUNITIES.map(t => `
+    <div class="problem-card ${t.source}" style="border-top-color: var(--accent-${t.source==='j'?'j':'m'})">
+      <span class="pc-source"><span class="pill pill-${t.source}" style="font-size:9px">${t.source==='j'?'Johnson':'Fitzpatrick'}</span></span>
+      <div class="pc-title">${t.title}</div>
+      <div class="pc-field"><span class="pc-label">Technology</span><span class="pc-value" style="font-family:var(--mono);font-size:11px">${t.tech}</span></div>
+      <div class="pc-field"><span class="pc-label">Why apt</span><span class="pc-value">${t.why}</span></div>
+      <div class="pc-field"><span class="pc-label">Application</span><span class="pc-value">${t.use}</span></div>
+    </div>`).join('');
+}
+
+function renderStartups() {
+  const grid = document.getElementById('startup-grid');
+  grid.innerHTML = STARTUPS.map(s => `
+    <div class="startup-card">
+      <div class="sc-header">
+        <span class="sc-num">${String(s.n).padStart(2,'0')}</span>
+        <div>
+          <div class="sc-name">${s.name}</div>
+          <div class="sc-tagline">${s.tagline}</div>
+        </div>
+        <span class="pill pill-${s.source}" style="font-size:9px;white-space:nowrap">${s.source==='j'?'Johnson':'Fitzpatrick'}</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-field"><div class="sc-field-label">Customer</div><div class="sc-field-value">${s.customer}</div></div>
+        <div class="sc-field"><div class="sc-field-label">Core innovation</div><div class="sc-field-value">${s.innovation}</div></div>
+        <div class="sc-field"><div class="sc-field-label">Competitive moat</div><div class="sc-field-value">${s.moat}</div></div>
+        <div class="sc-field"><div class="sc-field-label">Full vision (3–5yr)</div><div class="sc-field-value">${s.vision}</div></div>
+        <div class="sc-field"><div class="sc-field-label">Revenue model</div><div class="sc-field-value">${s.revenue}</div></div>
+        <div class="sc-field"><div class="sc-field-label">Biggest tech risk</div><div class="sc-field-value">${s.techRisk}</div></div>
+        <div class="sc-field"><div class="sc-field-label">Biggest biz risk</div><div class="sc-field-value">${s.bizRisk}</div></div>
+      </div>
+      <div class="sc-mvp">
+        <div class="mvp-label">MVP (buildable in 2–4 weeks)</div>
+        <div class="mvp-value">${s.mvp}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderHackathons() {
+  const grid = document.getElementById('hack-grid');
+  grid.innerHTML = HACKATHONS.map(h => `
+    <div class="hack-card">
+      <div class="hc-name">${h.name}</div>
+      <div class="hc-wow">⚡ ${h.wow}</div>
+      <div>
+        <div class="hc-field-label">Problem</div>
+        <div class="hc-field-value">${h.problem}</div>
+      </div>
+      <div>
+        <div class="hc-field-label">Demo flow</div>
+        <div class="hc-field-value">${h.demo}</div>
+      </div>
+      <div>
+        <div class="hc-field-label">Core architecture</div>
+        <div class="hc-field-value">${h.arch}</div>
+      </div>
+      <div>
+        <div class="hc-field-label">Tech stack</div>
+        <div class="tech-stack">${h.stack.map(t=>`<span class="tech-tag">${t}</span>`).join('')}</div>
+      </div>
+      <div>
+        <div class="hc-field-label">Stretch goals</div>
+        <div class="hc-field-value">${h.stretch.join(' · ')}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderLocalizations() {
+  const grid = document.getElementById('locale-grid');
+  grid.innerHTML = LOCALIZATIONS.map(l => `
+    <div class="locale-card">
+      <div class="lc-country">${l.country}</div>
+      <div class="lc-idea">${l.idea}</div>
+      <div class="lc-why">${l.why}</div>
+      <div class="lc-domain">${l.domain}</div>
+    </div>`).join('');
+}
+
+function renderInsights() {
+  const grid = document.getElementById('insights-grid');
+  grid.innerHTML = INSIGHTS.map(i => `
+    <div class="insight-row ${i.highlight?'highlight':''}">
+      <div class="insight-q">${i.q}</div>
+      <div>
+        <div class="insight-label">${i.label}</div>
+        <div class="insight-text">${i.text}</div>
+      </div>
+    </div>`).join('');
+}
+
+function setActive(el) {
+  document.querySelectorAll('.phase-nav a').forEach(a => a.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ── LOADING ───────────────────────────────────────────────────────────────────
+const messages = [
+  "BRIEFING THE ANTHROPOLOGIST",
+  "RUNNING SYSTEMS ANALYSIS",
+  "STRESS-TESTING WITH THE VC",
+  "MAPPING ADJACENT POSSIBLES",
+  "APPLYING MOM TEST FRAMEWORK",
+  "EXTRACTING SLOW HUNCHES",
+  "ARCHITECTING SOLUTIONS",
+  "IDENTIFYING LEVERAGE POINTS",
+  "LOCALIZING FOR SOUTH ASIA",
+  "FINALIZING INSIGHTS"
+];
+
+let msgIdx = 0;
+const loaderMsg = document.getElementById('loader-msg');
+const loaderBar = document.getElementById('loader-bar');
+let pct = 0;
+
+const interval = setInterval(() => {
+  pct += 10;
+  loaderBar.style.width = pct + '%';
+  loaderMsg.textContent = messages[msgIdx % messages.length];
+  msgIdx++;
+  if(pct >= 100) {
+    clearInterval(interval);
+    setTimeout(() => {
+      renderProblems();
+      renderOpportunities();
+      renderTech();
+      renderStartups();
+      renderHackathons();
+      renderLocalizations();
+      renderInsights();
+      document.getElementById('loading-overlay').style.display = 'none';
+      document.getElementById('main-content').style.display = 'block';
+    }, 400);
+  }
+}, 280);
+
+// Nav scroll tracking
+window.addEventListener('scroll', () => {
+  const sections = document.querySelectorAll('.phase-section');
+  const navLinks = document.querySelectorAll('.phase-nav a');
+  let current = '';
+  sections.forEach(s => {
+    if(window.scrollY >= s.offsetTop - 100) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#'+current);
+  });
+});
+</script>
+</body>
+</html>
